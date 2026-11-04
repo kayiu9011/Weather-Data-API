@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A full-stack weather dashboard powered by Spring Boot and Open-Meteo.">
+    <title>Weather Data API</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="/" aria-label="Weather Data API home">
+          <span class="brand-mark" aria-hidden="true">W</span>
+          <span>
+            <strong>Weather Data</strong>
+            <small>API</small>
+          </span>
+        </a>
+        <div class="api-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          Live data via Open-Meteo
+        </div>
+      </header>
+
+      <main>
+        <section class="search-hero" aria-labelledby="page-title">
+          <div>
+            <p class="eyebrow">Local forecast intelligence</p>
+            <h1 id="page-title">Weather, clearly explained.</h1>
+            <p class="hero-copy">Search any city for current conditions, the next 12 hours, and a practical rain advisory.</p>
+          </div>
+
+          <form id="weather-form" class="search-form" role="search">
+            <label class="sr-only" for="city-input">City name</label>
+            <div class="input-wrap">
+              <span aria-hidden="true">⌖</span>
+              <input id="city-input" name="city" type="search" value="Singapore" placeholder="Search a city" autocomplete="off" required>
+            </div>
+            <button id="search-button" type="submit">
+              <span>Search weather</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <div class="quick-search" aria-label="Popular cities">
+            <span>Try</span>
+            <button type="button" data-city="Singapore">Singapore</button>
+            <button type="button" data-city="Tokyo">Tokyo</button>
+            <button type="button" data-city="London">London</button>
+          </div>
+        </section>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <section id="dashboard" class="dashboard" aria-live="polite">
+          <article class="current-card panel">
+            <div class="card-heading">
+              <div>
+                <p class="section-label">Current weather</p>
+                <h2 id="current-city">—</h2>
+              </div>
+              <p id="observed-at" class="observed-at">—</p>
+            </div>
+
+            <div class="current-main">
+              <div id="current-icon" class="weather-icon" aria-hidden="true">☀</div>
+              <div>
+                <p class="temperature"><span id="current-temperature">—</span><sup>°C</sup></p>
+                <p id="current-condition" class="condition">—</p>
+              </div>
+            </div>
+
+            <div class="current-details">
+              <div>
+                <span class="detail-icon" aria-hidden="true">◌</span>
+                <span><small>Humidity</small><strong id="current-humidity">—</strong></span>
+              </div>
+              <div>
+                <span class="detail-icon" aria-hidden="true">≈</span>
+                <span><small>Wind speed</small><strong id="current-wind">—</strong></span>
+              </div>
+            </div>
+          </article>
+
+          <div class="insight-column">
+            <div class="statistics-grid">
+              <article class="stat-card panel">
+                <div class="stat-icon warm" aria-hidden="true">∿</div>
+                <p class="section-label">12-hour average</p>
+                <p class="stat-value"><span id="average-temperature">—</span><small>°C</small></p>
+                <p class="stat-note">Across the upcoming forecast</p>
+              </article>
+
+              <article class="stat-card panel">
+                <div class="stat-icon hot" aria-hidden="true">↑</div>
+                <p class="section-label">Hottest hour</p>
+                <p class="stat-value"><span id="hottest-temperature">—</span><small>°C</small></p>
+                <p id="hottest-time" class="stat-note">—</p>
+              </article>
+            </div>
+
+            <article id="umbrella-card" class="advisory panel">
+              <div id="umbrella-icon" class="advisory-icon" aria-hidden="true">☂</div>
+              <div>
+                <p class="section-label">Rain advisory</p>
+                <h3 id="umbrella-title">Checking the sky…</h3>
+                <p id="umbrella-message">Forecast advisory will appear here.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-section panel" aria-labelledby="forecast-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Coming up</p>
+              <h2 id="forecast-title">Hourly forecast</h2>
+            </div>
+            <p>Next 12 hours</p>
+          </div>
+          <div id="hourly-forecast" class="hourly-list"></div>
+        </section>
+
+        <section class="content-section panel" aria-labelledby="history-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Saved locally</p>
+              <h2 id="history-title">Observation history</h2>
+            </div>
+            <p>Latest 10 searches</p>
+          </div>
+          <div id="history-list" class="history-list"></div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Built with Java, Spring Boot, H2, and vanilla JavaScript.</p>
+        <p>Weather data by <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
