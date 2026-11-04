@@ -152,15 +152,33 @@ Requirements:
 - Java 21
 - Maven 3.6.3 or newer
 
-Clone the repository, enter its directory, and start the application:
+### Quick start on Windows
+
+After cloning the repository, double-click `start-weather-app.bat`. The launcher starts the Spring Boot server, waits until it is ready, and opens the dashboard automatically at <http://localhost:8081>.
+
+Keep the launcher window open while using the application. Press `Ctrl+C` in that window to stop the server.
+
+The launcher requires the `mvn` command to be available. If Windows cannot find Maven, install Maven and add its `bin` directory to your system `PATH`.
+
+### Start from a terminal
+
+Enter the project directory and run:
 
 ```bash
 mvn spring-boot:run
 ```
 
-Open <http://localhost:8080> for the dashboard or <http://localhost:8080/api/health> for the health check.
+Open <http://localhost:8081> for the dashboard or <http://localhost:8081/api/health> for the health check.
 
-The development database is created under `data/`. Its files are ignored by Git. The optional H2 console is available at <http://localhost:8080/h2-console> with:
+This project uses port `8081` instead of Spring Boot's default port `8080`, which reduces conflicts with other locally running applications. If port `8081` is already occupied, choose a temporary port when starting the application:
+
+```bash
+mvn spring-boot:run -Dspring-boot.run.arguments="--server.port=8090"
+```
+
+Then open <http://localhost:8090>. When a custom port is used, the double-click launcher will not open that address automatically.
+
+The development database is created under `data/`. Its files are ignored by Git. The optional H2 console is available at <http://localhost:8081/h2-console> with:
 
 ```text
 JDBC URL: jdbc:h2:file:./data/weatherdb
@@ -179,6 +197,12 @@ Create an executable JAR:
 ```bash
 mvn clean package
 java -jar target/weather-data-api-0.0.1-SNAPSHOT.jar
+```
+
+The packaged application also uses port `8081`. Override it when necessary with:
+
+```bash
+java -jar target/weather-data-api-0.0.1-SNAPSHOT.jar --server.port=8090
 ```
 
 ## Screenshots
